@@ -155,19 +155,19 @@ body {
     border-radius:100px 100px 0px 0px;
 }
 #moreinfo:hover {
-    background:rgba(16, 16, 17, 0.9);
+    background:rgba(140, 21, 21, 0.9);
     cursor:pointer;
 }
 #about:hover {
-    background:rgba(16, 17, 17, 0.9);
+    background:rgba(140, 21, 21, 0.9);
     cursor:pointer;
 }
 #admissions:hover {
-    background:rgba(16, 16, 16, 0.9);
+    background:rgba(140, 21, 21, 0.9);
     cursor:pointer;
 }
 #tours:hover {
-    background:rgba(12, 12, 12, 0.9);
+    background:rgba(140, 21, 21, 0.9);
     cursor:pointer;
 }
 #middle table {
@@ -187,7 +187,7 @@ body {
 }
 .social:hover { 
     cursor: pointer;
-    color:rgb(12, 12, 12);
+    color:rgb(140, 21, 21);
 }
 .container {
     width:90vw;
@@ -247,7 +247,7 @@ body {
 }
 .btn_one:hover {
     cursor:pointer;
-    color:rgb(50, 245, 255);
+    color:rgb(140, 21, 21);
     background:#fff;
 }
 .btn_two {
