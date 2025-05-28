@@ -98,7 +98,6 @@ document.querySelectorAll('.scroll-indicator').forEach((el, i) => {
 document.querySelectorAll('.scroll-up-indicator').forEach((el, i) => {
   el.addEventListener('click', () => switchPage(i, 'up'));
 });
-</script>
 
 function showtours(){
     $("#tours_container").css("display","inherit");
