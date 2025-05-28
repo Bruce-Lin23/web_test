@@ -1,5 +1,6 @@
 let currentAdmissionsPage = 0;
 const admissionsPages = document.querySelectorAll('.admissions-page');
+let isScrolling = false; // <-- Lock flag
 
 function showmoreinfo(){
     $("#moreinfo_container").css("display","inherit");
@@ -35,40 +36,58 @@ function showadmissions(){
     setTimeout(function(){
         $("#admissions_container").removeClass("animated slideInRight");
     },800);
-    
+
+    // Reset to first page when opening
     currentAdmissionsPage = 0;
     admissionsPages.forEach((page, index) => {
         page.classList.remove('active', 'slide-in-up', 'slide-out-up');
         if(index === 0) page.classList.add('active');
     });
 }
+
 document.getElementById('admissions_container').addEventListener('wheel', function(e) {
-    if(e.deltaY > 0) {
-        // Scroll down - go to next page
-        if(currentAdmissionsPage < admissionsPages.length - 1) {
+    if (isScrolling) return; // Prevent new scrolls during animation
+    isScrolling = true;
+
+    if (e.deltaY > 0) {
+        // Scroll down
+        if (currentAdmissionsPage < admissionsPages.length - 1) {
             const currentPage = admissionsPages[currentAdmissionsPage];
             const nextPage = admissionsPages[currentAdmissionsPage + 1];
-            
+
             currentPage.classList.add('slide-out-up');
             nextPage.classList.add('active', 'slide-in-up');
-            
+
             setTimeout(() => {
-                currentPage.classList.remove('active');
+                currentPage.classList.remove('active', 'slide-out-up');
+                nextPage.classList.remove('slide-in-up');
+                isScrolling = false; // Unlock after animation
             }, 800);
-            
+
             currentAdmissionsPage++;
+        } else {
+            isScrolling = false; // No page change, so unlock immediately
         }
-    } else if(e.deltaY < 0) {
-        // Scroll up - go to previous page
-        if(currentAdmissionsPage > 0) {
+    } else if (e.deltaY < 0) {
+        // Scroll up
+        if (currentAdmissionsPage > 0) {
             const currentPage = admissionsPages[currentAdmissionsPage];
             const prevPage = admissionsPages[currentAdmissionsPage - 1];
-            
+
             currentPage.classList.remove('active');
             prevPage.classList.add('active', 'slide-in-up');
-            
+
+            setTimeout(() => {
+                prevPage.classList.remove('slide-in-up');
+                isScrolling = false; // Unlock after animation
+            }, 800);
+
             currentAdmissionsPage--;
+        } else {
+            isScrolling = false;
         }
+    } else {
+        isScrolling = false;
     }
 });
 function closeadmissions(){
