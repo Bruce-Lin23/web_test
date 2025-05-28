@@ -83,7 +83,7 @@ body {
     font-size:70px;
     text-decoration:underline;
 }
-#projects {
+#moreinfo {
     width: 10vw;
     height: 10vw;
     text-align: center;
@@ -119,7 +119,7 @@ body {
     transition:0.4s ease-in-out;
     border-radius:0px 0px 100px 100px;
 }
-#work {
+#admissions {
     width:10vw;
     height:10vw;
     text-align:center;
@@ -137,7 +137,7 @@ body {
     transition:0.4s ease-in-out;
     border-radius:0px 0px 100px 100px;
 }
-#contact {
+#tours {
     width:10vw;
     height:10vw;
     text-align:center;
@@ -154,7 +154,7 @@ body {
     transition:0.4s ease-in-out;
     border-radius:100px 100px 0px 0px;
 }
-#projects:hover {
+#moreinfo:hover {
     background:rgba(16, 16, 17, 0.9);
     cursor:pointer;
 }
@@ -162,11 +162,11 @@ body {
     background:rgba(16, 17, 17, 0.9);
     cursor:pointer;
 }
-#work:hover {
+#admissions:hover {
     background:rgba(16, 16, 16, 0.9);
     cursor:pointer;
 }
-#contact:hover {
+#tours:hover {
     background:rgba(12, 12, 12, 0.9);
     cursor:pointer;
 }
@@ -343,16 +343,16 @@ body {
 }
 
 @media (max-width: 800px){ 
-    #projects {
+    #moreinfo {
         display:none;
     }
     #about {
         display:none;
     }
-    #contact {
+    #tours {
         display:none;
     }
-    #work {
+    #admissions {
         display:none;
     }
     #footer {
