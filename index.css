@@ -260,11 +260,11 @@ body {
 }
 
 #financial-aid {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/financial-aid-bg.jpg') center center;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/financial-aid_3.jpg') center center;
 }
 
 #other-programs {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/programs-bg.jpg') center center;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/stanfordmajors-edited-scaled.jpg') center center;
 }
 
 .page-content {
