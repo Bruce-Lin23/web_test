@@ -1,6 +1,6 @@
 let currentAdmissionsPage = 0;
 const admissionsPages = document.querySelectorAll('.admissions-page');
-let scrollTimeout = null;
+let isScrolling = false;
 
 function showmoreinfo(){
     $("#moreinfo_container").css("display","inherit");
@@ -31,23 +31,36 @@ function closeabout(){
     },800);
 }
 
-function showadmissions(){
+function showadmissions() {
     $("#admissions_container").css("display", "inherit");
     $("#admissions_container").addClass("animated slideInRight");
-    setTimeout(function(){
+
+    setTimeout(() => {
         $("#admissions_container").removeClass("animated slideInRight");
     }, 800);
 
+    currentAdmissionsPage = 0;
     admissionsPages.forEach((page, index) => {
         page.classList.remove('active', 'slide-in-up', 'slide-out-up');
-        if(index === 0) page.classList.add('active');
+        if (index === 0) page.classList.add('active');
     });
-
-    currentAdmissionsPage = 0;
 }
 
+// Close admissions modal
+function closeadmissions() {
+    $("#admissions_container").addClass("animated slideOutRight");
+
+    setTimeout(() => {
+        $("#admissions_container").removeClass("animated slideOutRight");
+        $("#admissions_container").css("display", "none");
+    }, 800);
+}
+
+// Unified page switching logic
 function switchPage(newIndex) {
-    if (newIndex < 0 || newIndex >= admissionsPages.length || newIndex === currentAdmissionsPage) return;
+    if (isScrolling || newIndex < 0 || newIndex >= admissionsPages.length || newIndex === currentAdmissionsPage) return;
+
+    isScrolling = true;
 
     const currentPage = admissionsPages[currentAdmissionsPage];
     const nextPage = admissionsPages[newIndex];
@@ -59,23 +72,53 @@ function switchPage(newIndex) {
         currentPage.classList.remove('active', 'slide-out-up');
         nextPage.classList.remove('slide-in-up');
         currentAdmissionsPage = newIndex;
-    }, 800);
+        isScrolling = false;
+    }, 800); // Match the animation duration
 }
 
-// Throttled scroll handler
-document.getElementById('admissions_container').addEventListener('wheel', function(e) {
-    if (scrollTimeout) return;
-
+// Mouse scroll support
+document.getElementById('admissions_container').addEventListener('wheel', (e) => {
     if (e.deltaY > 0) {
-        switchPage(currentAdmissionsPage + 1);
+        switchPage(currentAdmissionsPage + 1); // scroll down
     } else if (e.deltaY < 0) {
-        switchPage(currentAdmissionsPage - 1);
+        switchPage(currentAdmissionsPage - 1); // scroll up
     }
-
-    scrollTimeout = setTimeout(() => {
-        scrollTimeout = null;
-    }, 900); // slightly longer than animation duration
 });
+
+// Keyboard arrow navigation
+document.addEventListener('keydown', (e) => {
+    if ($("#admissions_container").css("display") !== "none") {
+        if (e.key === "ArrowDown") {
+            switchPage(currentAdmissionsPage + 1);
+        } else if (e.key === "ArrowUp") {
+            switchPage(currentAdmissionsPage - 1);
+        }
+    }
+});
+
+// Touch swipe navigation
+let touchStartY = 0;
+let touchEndY = 0;
+
+document.getElementById('admissions_container').addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+});
+
+document.getElementById('admissions_container').addEventListener('touchend', (e) => {
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50; // px
+    const deltaY = touchStartY - touchEndY;
+
+    if (deltaY > swipeThreshold) {
+        switchPage(currentAdmissionsPage + 1); // swipe up (scroll down)
+    } else if (deltaY < -swipeThreshold) {
+        switchPage(currentAdmissionsPage - 1); // swipe down (scroll up)
+    }
+}
 function closeadmissions(){
     $("#admissions_container").addClass("animated slideOutRight");
     setTimeout(function(){
