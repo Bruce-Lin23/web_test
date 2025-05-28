@@ -1,3 +1,6 @@
+let currentAdmissionsPage = 0;
+const admissionsPages = document.querySelectorAll('.admissions-page');
+
 function showmoreinfo(){
     $("#moreinfo_container").css("display","inherit");
     $("#moreinfo_container").addClass("animated slideInDown");
@@ -32,7 +35,42 @@ function showadmissions(){
     setTimeout(function(){
         $("#admissions_container").removeClass("animated slideInRight");
     },800);
+    
+    currentAdmissionsPage = 0;
+    admissionsPages.forEach((page, index) => {
+        page.classList.remove('active', 'slide-in-up', 'slide-out-up');
+        if(index === 0) page.classList.add('active');
+    });
 }
+document.getElementById('admissions_container').addEventListener('wheel', function(e) {
+    if(e.deltaY > 0) {
+        // Scroll down - go to next page
+        if(currentAdmissionsPage < admissionsPages.length - 1) {
+            const currentPage = admissionsPages[currentAdmissionsPage];
+            const nextPage = admissionsPages[currentAdmissionsPage + 1];
+            
+            currentPage.classList.add('slide-out-up');
+            nextPage.classList.add('active', 'slide-in-up');
+            
+            setTimeout(() => {
+                currentPage.classList.remove('active');
+            }, 800);
+            
+            currentAdmissionsPage++;
+        }
+    } else if(e.deltaY < 0) {
+        // Scroll up - go to previous page
+        if(currentAdmissionsPage > 0) {
+            const currentPage = admissionsPages[currentAdmissionsPage];
+            const prevPage = admissionsPages[currentAdmissionsPage - 1];
+            
+            currentPage.classList.remove('active');
+            prevPage.classList.add('active', 'slide-in-up');
+            
+            currentAdmissionsPage--;
+        }
+    }
+});
 function closeadmissions(){
     $("#admissions_container").addClass("animated slideOutRight");
     setTimeout(function(){
