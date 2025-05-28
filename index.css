@@ -234,17 +234,21 @@ body {
     font-size:21px;
 }
 .admissions-page {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100vh;
-    position: relative;
     display: none;
     background-size: cover;
     background-position: center;
     overflow: hidden;
+    z-index: 1; 
 }
 
 .admissions-page.active {
     display: block;
+    z-index: 2;
 }
 
 #admissions-intro {
