@@ -243,12 +243,11 @@ body {
     background-size: cover;
     background-position: center;
     overflow: hidden;
-    z-index: 1; 
 }
 
 .admissions-page.active {
     display: block;
-    z-index: 2;
+    z-index: 1;
 }
 
 #admissions-intro {
